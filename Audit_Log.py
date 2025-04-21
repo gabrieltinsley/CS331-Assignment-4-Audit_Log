@@ -1,6 +1,6 @@
 # Team #2 Audit Log for Part 2 of Assignment 4
 # Authors: Gabriel Tinsley, Sariah Bjornn, Eben Meyer, Chase Stombaugh
-
+from datetime import datetime
 # User roles
 admin_users = ["admin1", "admin2"]
 
@@ -23,9 +23,10 @@ def add_log_event(user_id: str, event_data: dict) -> bool:
         return False
     
     # appending the security event to a log file
-    try: 
+    try:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         with open("audit_log.txt", "a") as log_file:
-            log_file.write(f"{user_id}: {event_data}\n")
+            log_file.write(f"[{timestamp}] {user_id}: {event_data}\n")
         return True
     except Exception as e: 
         print(f"There was an error while writing to log: {e}")
